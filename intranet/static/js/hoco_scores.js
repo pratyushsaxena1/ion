@@ -1,4 +1,12 @@
 $(document).ready(function() {
+    console.log('hello');
+    loadScores();
+    setInterval(function() {
+        loadScores();
+    }, 5 * 60 * 1000);
+});
+
+function loadScores() {
     $.get("https://homecoming.tjhsst.edu/api/", function(data) {
         console.log(data.senior_total ? data.senior_total : 0);
         $("#score-senior").text(data.senior_total ? data.senior_total : 0);
@@ -8,7 +16,8 @@ $(document).ready(function() {
         giveRibbons();
         $("#hoco-scores").fadeIn();
     });
-});
+}
+
 function giveRibbons() {
     var arr = [];
     $("#hoco-scores .box").each(function() {
@@ -25,11 +34,9 @@ function giveRibbons() {
         }
         if (place == 0) {
             v[0].find(".corner-ribbon").addClass("gold").text("1st");
-        }
-        else if (place == 1) {
+        } else if (place == 1) {
             v[0].find(".corner-ribbon").addClass("silver").text("2nd");
-        }
-        else if (place == 2) {
+        } else if (place == 2) {
             v[0].find(".corner-ribbon").addClass("bronze").text("3rd");
         }
     });
